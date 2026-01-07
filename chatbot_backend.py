@@ -31,7 +31,3 @@ graph.add_edge(START, "chatModel")
 graph.add_edge("chatModel", END)
 
 ChatModel = graph.compile(checkpointer=checkpointer)
-
-config = {'configurable' : {'thread_id' : 1}}
-# response = ChatModel.invoke({"messages" : [HumanMessage(content="What is my name")]}, config=config)
-# print(response['messages'][-1].content)
