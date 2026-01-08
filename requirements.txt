@@ -18,3 +18,4 @@ groq
 tiktoken
 streamlit
 requests
+langgraph-checkpoint-sqlite

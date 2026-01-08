@@ -1,5 +1,5 @@
 import streamlit as st
-from chatbot_backend import ChatModel
+from chatbot_backend import ChatModel, threads
 from langchain_core.messages import HumanMessage, AIMessage
 from typing import TypedDict
 import uuid
@@ -21,14 +21,14 @@ def addThread(thread_id):
 
 def loadChat(thread_id):
     return ChatModel.get_state(config={'configurable' : {'thread_id' : thread_id}}).values
-    
+
 
 # initializing the message_history for a chat if not in session
 if "message_history" not in st.session_state:
     st.session_state['message_history'] = []
 
 if "thread_ids" not in st.session_state:
-    st.session_state["thread_ids"] = []
+    st.session_state["thread_ids"] = threads
 
 if "thread_id" not in st.session_state:
     st.session_state['thread_id'] = generateThreadId()
@@ -49,7 +49,6 @@ for thread_id in st.session_state["thread_ids"][::-1]:
         convo = loadChat(thread_id)
         st.session_state["message_history"] = []
         if len(convo) != 0:
-            print(convo)
             for msg in convo['messages']:
                 if isinstance(msg, HumanMessage):
                     st.session_state["message_history"].append({'role' : "User", "content" : msg.content})
