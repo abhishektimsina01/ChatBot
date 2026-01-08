@@ -17,7 +17,7 @@ llm = ChatGroq(
 )
 
 class MessageState(TypedDict):
-    messages : Annotated[list[str], add_messages]
+    messages : Annotated[list[BaseMessage], add_messages]
 
 def chatModel(state : MessageState):
     messages = state['messages']
